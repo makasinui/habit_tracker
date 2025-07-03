@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { DropdownOption } from '~/types/global';
+import type { DropdownOption } from '~/types';
 
 interface DropdownProps {
     title: string;

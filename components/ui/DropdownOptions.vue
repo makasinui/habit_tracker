@@ -19,7 +19,7 @@
     </Transition>
 </template>
 <script lang="ts" setup>
-import type { DropdownOption } from '~/types/global';
+import type { DropdownOption } from '~/types';
 
 interface DropdownOptionsProps {
     options: DropdownOption[];
