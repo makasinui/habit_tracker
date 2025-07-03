@@ -48,6 +48,8 @@ const onSelect = (option: DropdownOption) => {
 .dropdown {
     &__options {
         position: absolute;
+        background: #fff;
+        z-index: 1000000;
         top: 100%;
         right: 0;
         border-radius: 0.25rem;
@@ -55,6 +57,7 @@ const onSelect = (option: DropdownOption) => {
         margin-top: 0.5rem;
         padding: 0.5rem;
         list-style: none;
+        width: 100%;
     }
 
     &__option {

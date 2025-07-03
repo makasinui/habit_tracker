@@ -12,6 +12,7 @@
             :model-value="modelValue"
             :options="options"
             @close="isOpen = false"
+            @update:model-value="modelValue = $event"
         />
     </div>
 </template>
