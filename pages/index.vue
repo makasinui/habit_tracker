@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <HabitCards />
+        <HabitAdd />
     </div>
 </template>
 
