@@ -1,26 +1,28 @@
 <template>
-    <Teleport
-        v-if="modelValue"
-        to="body"
-    >
-        <article class="modal">
-            <div class="modal__wrapper">
-                <div class="modal__content">
-                    <header class="modal__header">
-                        <h3 class="modal__header-title">{{ title }}</h3>
-                        <Icon
-                            name="line-md:close"
-                            size="20"
-                            @click="modelValue = false"
-                        />
-                    </header>
-                    <div class="modal__body">
-                        <slot />
+    <Transition name="modal-fade">
+        <Teleport
+            v-if="modelValue"
+            to="body"
+        >
+            <article class="modal">
+                <div class="modal__wrapper">
+                    <div class="modal__content">
+                        <header class="modal__header">
+                            <h3 class="modal__header-title">{{ title }}</h3>
+                            <Icon
+                                name="line-md:close"
+                                size="20"
+                                @click="modelValue = false"
+                            />
+                        </header>
+                        <div class="modal__body">
+                            <slot />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
-    </Teleport>
+            </article>
+        </Teleport>
+    </Transition>
 </template>
 
 <script lang="ts" setup>
@@ -73,6 +75,18 @@ const modelValue = defineModel<boolean>({ default: false });
 
     &__body {
         margin-top: toRem(22);
+    }
+
+    &-fade {
+        transition: 0.3s all;
+    
+        &-enter-active, &-leave-active {
+            transition: opacity 0.5s ease-in-out;
+        }
+    
+        &-enter-from, &-leave-to {
+            opacity: 0;
+        }
     }
 }
 </style>
