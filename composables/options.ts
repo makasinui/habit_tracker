@@ -2,16 +2,16 @@ import { type  DropdownOption, HabitPeriod, HabitType } from '~/types';
 
 export const useOptions = () => {
     const periodOptions: Ref<DropdownOption[]> = computed(() =>
-        Object.values(HabitPeriod).map((period, i) => ({
-            id: i,
-            label: period,
+        Object.values(HabitPeriod).map((period) => ({
+            id: period,
+            label: firstCharToUppercase(period),
         })),
     );
 
     const typeOptions: Ref<DropdownOption[]> = computed(() =>
-        Object.values(HabitType).map((type, i) => ({
-            id: i,
-            label: type,
+        Object.values(HabitType).map((type) => ({
+            id: type,
+            label: firstCharToUppercase(type),
         })),
     );
 
