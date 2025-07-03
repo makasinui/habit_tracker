@@ -1,4 +1,4 @@
-import type { Habit } from '~/types/habit';
+import type { Habit } from '~/types';
 
 export const useHabitStore = defineStore('habit', () => {
     const habits = ref<Habit[]>([

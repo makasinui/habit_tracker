@@ -1,6 +1,6 @@
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import type { Statistic } from "~/types/statistic";
+import type { Statistic } from "~/types";
 
 export const useStatisticStore = defineStore('statistic', () => {
     const statistics = ref<Statistic[]>([]);

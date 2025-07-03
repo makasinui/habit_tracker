@@ -1,3 +1,6 @@
+import type { Dayjs } from "dayjs";
+import type { DropdownOption } from "../global";
+
 export enum HabitType {
     DAILY = 'daily',
     WEEKLY = 'weekly',
@@ -17,6 +20,13 @@ export interface Habit {
     period: HabitPeriod;
     type: HabitType;
     goal: string;
-    startDate: string;
+    startDate: Dayjs;
     endDate?: string;
+}
+
+//export type HabitForm = Omit<Habit, 'id'>;
+
+export interface HabitForm extends Omit<Habit, 'id' | 'period' | 'type'> {
+    period: DropdownOption;
+    type: DropdownOption;
 }
