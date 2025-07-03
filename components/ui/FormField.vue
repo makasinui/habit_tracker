@@ -2,12 +2,14 @@
     <div class="form-field">
         <span class="form-field__label">{{ label }}</span>
         <UiInput v-model="modelValue" />
+        <UiError :error="error" />
     </div>
 </template>
 
 <script lang="ts" setup>
 interface FormFieldProps {
     label: string;
+    error?: string;
 }
 
 defineProps<FormFieldProps>();
