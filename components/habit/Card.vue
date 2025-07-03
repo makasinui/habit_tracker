@@ -58,12 +58,14 @@ const onChangeCompleted = () => {
 </script>
 
 <style lang="scss">
+@use '/styles/mixins' as *;
+
 $green: #edfff4;
 $primary: #fbfbfb;
 
 .habit__card {
     background: $primary;
-    border-radius: 15px;
+    border-radius: toRem(15);
     padding: 0.8rem 0.5rem;
     transition: 0.3s background-color;
 
@@ -91,7 +93,7 @@ $primary: #fbfbfb;
         position: relative;
     }
     &-title {
-        font-size: 16px;
+        font-size: toRem(16);
         font-weight: 400;
 
     }
