@@ -16,11 +16,6 @@
 </template>
 
 <script lang="ts" setup>
-interface CheckboxProps {
-    id: string;
-}
-
-defineProps<CheckboxProps>();
 
 const modelValue = defineModel<boolean>();
 
