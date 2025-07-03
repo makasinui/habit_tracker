@@ -17,4 +17,6 @@ export interface Habit {
     period: HabitPeriod;
     type: HabitType;
     goal: string;
+    startDate: string;
+    endDate?: string;
 }
