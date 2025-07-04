@@ -1,19 +1,26 @@
 <template>
     <div class="form-field">
         <span class="form-field__label">{{ label }}</span>
-        <UiInput v-model="modelValue" />
+        <UiInput v-model="modelValue" @update:model-value="onChange" />
         <UiError :error="error" />
     </div>
 </template>
 
 <script lang="ts" setup>
+import type { ErrorObject } from '@vuelidate/core';
+
+
 interface FormFieldProps {
     label: string;
-    error?: string;
+    error?: ErrorObject[];
 }
 
 defineProps<FormFieldProps>();
-const modelValue = defineModel<string>('');
+const modelValue = defineModel<string>();
+
+const onChange = (e: string) => {
+    modelValue.value = e;
+}
 </script>
 
 <style lang="scss">

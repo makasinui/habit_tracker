@@ -1,12 +1,14 @@
 <template>
-    <span v-if="error" class="error">
-        {{ error }}
+    <span v-if="error?.[0]?.$message" class="error">
+        {{ error[0].$message }}
     </span>
 </template>
 
 <script lang="ts" setup>
+import type { ErrorObject } from '@vuelidate/core';
+
 interface ErrorProps {
-    error?: string;
+    error?: ErrorObject[];
 }
 
 defineProps<ErrorProps>();
