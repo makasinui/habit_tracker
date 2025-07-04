@@ -2,7 +2,7 @@
     <UiModal
         v-model="isOpenCreateModal"
         title="Create new Habit"
-        @update:model-value="onChangeCreateModal"
+        @update:model-value="onClose"
     >
         <div class="modal__habit-content">
             <UiFormField
@@ -44,6 +44,11 @@ const { form, vform$, periodOptions, typeOptions, clearForm } = useModal();
 const { isOpenCreateModal } = storeToRefs(habitStore);
 const { onChangeCreateModal, addHabit } = habitStore;
 
+const onClose = () => {
+    clearForm();
+    onChangeCreateModal(false);
+}
+
 const onSave = async () => {
     const isValid = await vform$.value.$validate();
 
@@ -52,8 +57,7 @@ const onSave = async () => {
     }
 
     addHabit(form);
-    onChangeCreateModal(false);
-    clearForm();
+    onClose();
 };
 </script>
 
