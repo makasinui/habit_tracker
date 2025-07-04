@@ -1,4 +1,4 @@
-import type { Habit } from '~/types';
+import type { Habit, HabitForm } from '~/types';
 
 export const useHabitStore = defineStore('habit', () => {
     const habits = ref<Habit[]>([
@@ -12,9 +12,22 @@ export const useHabitStore = defineStore('habit', () => {
         isOpenCreateModal.value = value;
     };
 
+    const addHabit = (form: HabitForm) => {
+        const period = form.period.id;
+        const type = form.type.id;
+
+        habits.value.push({
+            ...form,
+            period,
+            type,
+            id: Date.now()
+        });
+    }
+
     return {
         habits,
         isOpenCreateModal,
         onChangeCreateModal,
+        addHabit
     };
 });
