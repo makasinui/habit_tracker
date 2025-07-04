@@ -2,12 +2,15 @@
     <section class="habit__cards">
         <h2 class="habit__cards-title">Today Habit</h2>
         <div class="habit__cards-wrapper">
-            <HabitCard
-                v-for="habit in habits"
-                :id="habit.id"
-                :key="habit.id"
-                :title="habit.title"
-            />
+            <template v-if="habits.length">
+                <HabitCard
+                    v-for="habit in habits"
+                    :id="habit.id"
+                    :key="habit.id"
+                    :title="habit.title"
+                />
+            </template>
+            <span v-else>Empty</span>
         </div>
     </section>
 </template>
@@ -21,7 +24,7 @@ const { habits } = storeToRefs(habitStore);
 <style lang="scss">
 @use '/styles/mixins' as *;
 
-.habit__cards {    
+.habit__cards {
     padding: toRem(30) toRem(15);
     background: #fff;
     box-shadow: .5px .5px 1px .2px #8d8a8a;
