@@ -28,6 +28,8 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from 'dayjs';
+
 interface HabitCardProps {
     id: number;
     title: string;
@@ -36,7 +38,7 @@ interface HabitCardProps {
 
 const statisticStore = useStatisticStore();
 
-const { getTodayIsCompleted } = statisticStore;
+const { getTodayIsCompleted, addToStatistic, removeFromStatistic } = statisticStore;
 
 const props = defineProps<HabitCardProps>();
 const isCompleted = ref(getTodayIsCompleted(props.id));
@@ -53,6 +55,13 @@ const openMore = () => {
 
 const onChangeCompleted = () => {
     isCompleted.value = !isCompleted.value;
+
+    if (isCompleted.value) {
+        addToStatistic(props.id, dayjs());
+    } else {
+        removeFromStatistic(props.id, dayjs());
+    }
+
 };
 </script>
 
@@ -76,7 +85,7 @@ $primary: #fbfbfb;
         background: $green;
 
         .habit__card-title {
-            color: #37C871;
+            color: #37c871;
         }
     }
 
@@ -94,7 +103,6 @@ $primary: #fbfbfb;
     &-title {
         font-size: toRem(16);
         font-weight: 400;
-
     }
 }
 </style>
