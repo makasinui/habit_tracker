@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <HabitCompleted />
         <HabitCards />
         <HabitAdd />
         <HabitModal />
