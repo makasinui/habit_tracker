@@ -1,5 +1,5 @@
 <template>
-    <div class="add-habit" @click="onChangeCreateModal(true)">
+    <div class="add-habit pointer" @click="onChangeCreateModal(true)">
         <Icon name="fluent-color:add-circle-24" size="75" />
     </div>
 </template>

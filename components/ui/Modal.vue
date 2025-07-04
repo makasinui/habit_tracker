@@ -12,6 +12,7 @@
                             <Icon
                                 name="line-md:close"
                                 size="20"
+                                class="pointer"
                                 @click="modelValue = false"
                             />
                         </header>
