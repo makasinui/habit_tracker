@@ -27,6 +27,6 @@ export interface Habit {
 //export type HabitForm = Omit<Habit, 'id'>;
 
 export interface HabitForm extends Omit<Habit, 'id' | 'period' | 'type'> {
-    period: DropdownOption;
-    type: DropdownOption;
+    period: DropdownOption<HabitPeriod>;
+    type: DropdownOption<HabitType>;
 }
