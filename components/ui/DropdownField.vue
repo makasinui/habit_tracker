@@ -1,11 +1,14 @@
 <template>
     <div class="dropdown__field">
-        <span class="label">{{ label }}</span>
-        <UiDropdown
-            :title="title"
-            :model-value="modelValue"
-            :options="options"
-        />
+        <div class="dropdown__field-wrapper">
+            <span class="label">{{ label }}</span>
+            <UiDropdown
+                :title="title"
+                :model-value="modelValue"
+                :options="options"
+                @update:model-value="modelValue = $event"
+            />
+        </div>
         <UiError :error="error" />
     </div>
 </template>
@@ -23,13 +26,18 @@ interface DropdownFieldProps {
 
 defineProps<DropdownFieldProps>();
 
-const modelValue = defineModel<DropdownOption>();
+const modelValue = defineModel<DropdownOption | null>();
 </script>
 
 <style lang="scss" scoped>
 .dropdown__field {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    
+    &-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
 
     .dropdown,
     .label {
