@@ -1,5 +1,6 @@
 <template>
     <Transition
+        v-click-outside="onClose"
         name="fade"
         mode="out-in"
     >
@@ -58,6 +59,7 @@ const onSelect = (option: DropdownOption) => {
         padding: 0.5rem;
         list-style: none;
         width: 100%;
+        min-width: fit-content;
     }
 
     &__option {
