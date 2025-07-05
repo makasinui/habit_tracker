@@ -31,11 +31,17 @@ export const useStatisticStore = defineStore('statistic', () => {
         return statistics.value.filter(stat => stat.habitId === habitId);
     }
 
+    const todayCompleted = computed(() => {
+        return statistics.value.filter(stat => stat.date.isSame(dayjs(), 'day'));
+    }) 
+    
+
     return {
         statistics,
         getTodayIsCompleted,
         addToStatistic,
         removeFromStatistic,
-        getAllStatisticById
+        getAllStatisticById,
+        todayCompleted
     }
 })
