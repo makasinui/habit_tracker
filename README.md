@@ -1,75 +1,31 @@
-# Nuxt Minimal Starter
+# 🧠 Simple Habit Tracker
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A minimal and flexible habit tracking app built with modern web technologies.
 
-## Setup
-
-Make sure to install dependencies:
+## 🚀 Installation
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
+yarn
 yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## 📁 Project Structure
 
-Build the application for production:
+-   **`components/`** – Reusable UI components. Global UI elements are located in the `ui/` subfolder.
+-   **`composables/`** – Shared logic using the Composition API.
+-   **`layouts/`** – Page layout wrappers.
+-   **`pages/`** – Application pages.
+-   **`plugins/`** – Vue plugins and custom directives.
+-   **`stores/`** – Pinia stores for application state, including habits and statistics.
+-   **`types/`** – TypeScript type definitions.
+-   **`utils/`** – Utility functions and helpers.
 
-```bash
-# npm
-npm run build
+## 🛠️ Tech Stack
 
-# pnpm
-pnpm build
+-   Nuxt
+-   TypeScript
+-   Pinia (state management)
+-   SCSS
+-   Vuelidate (form validation)
 
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
