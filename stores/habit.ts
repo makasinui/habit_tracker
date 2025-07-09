@@ -50,7 +50,7 @@ export const useHabitStore = defineStore('habit', () => {
 
     onMounted(() => {
         const localHabits = localStorage.getItem('habits');
-        console.log(localHabits)
+
         if(localHabits) {
             habits.value = JSON.parse(localHabits);
         }
