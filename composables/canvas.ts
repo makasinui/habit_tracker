@@ -36,8 +36,8 @@ export const useCanvas = () => {
         ctx.font = '21px Nunito';
         ctx.fillStyle = '#fff';
 
-        const progressPercent = progress ? progress * 100 : 0;
-        const x = String(progressPercent).length >= 2 ? 50 : 60;
+        const progressPercent = progress ? (progress * 100).toFixed() : 0;
+        const x = String(progressPercent).length >= 2 ? 55 : 60;
         ctx.fillText(progressPercent + '%', x, 80);
     };
 
