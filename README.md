@@ -16,7 +16,7 @@ yarn dev
 -   **`layouts/`** – Page layout wrappers.
 -   **`pages/`** – Application pages.
 -   **`plugins/`** – Vue plugins and custom directives.
--   **`stores/`** – Pinia stores for application state, including habits and statistics.
+-   **`stores/`** – Pinia stores for application state, including habits, statistics and modal.
 -   **`types/`** – TypeScript type definitions.
 -   **`utils/`** – Utility functions and helpers.
 
