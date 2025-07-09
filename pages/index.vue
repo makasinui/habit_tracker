@@ -4,6 +4,7 @@
         <HabitCards />
         <HabitAdd />
         <HabitModal />
+        <HabitDelete />
     </div>
 </template>
 

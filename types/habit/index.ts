@@ -34,5 +34,6 @@ export interface HabitForm extends Omit<Habit, 'id' | 'period' | 'type'> {
 
 export enum HabitModalType {
     CREATE = 'create',
-    EDIT = 'edit'
+    EDIT = 'edit',
+    DELETE = 'delete'
 }

@@ -34,7 +34,7 @@ export const useHabitStore = defineStore('habit', () => {
 
     const deleteHabit = (habitId: number) => {
         const habitIdx = habits.value.findIndex((hab) => hab.id === habitId);
-        if(habitIdx) {
+        if(habitIdx !== -1) {
             habits.value.splice(habitIdx, 1);
         }
     }

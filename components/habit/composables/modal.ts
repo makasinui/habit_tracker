@@ -29,6 +29,7 @@ export const useModal = () => {
         form.period = periodOptions.value[0];
         form.type = typeOptions.value[0];
         form.startDate = dayjs();
+        form.id = undefined;
 
         vform$.value.$reset();
     };

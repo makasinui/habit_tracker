@@ -8,7 +8,8 @@
                     :id="habit.id"
                     :key="habit.id"
                     :title="habit.title"
-                    @edit="onEdit(habit)"
+                    @edit="onCardAction(habit, HabitModalType.EDIT)"
+                    @delete="onCardAction(habit, HabitModalType.DELETE)"
                 />
             </template>
             <span v-else>Empty</span>
@@ -17,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Habit } from '~/types';
+import { HabitModalType, type Habit } from '~/types';
 
 const habitStore = useHabitStore();
 const modalStore = useModalStore();
@@ -25,8 +26,8 @@ const modalStore = useModalStore();
 const { habits } = storeToRefs(habitStore);
 const { onChangeVisibilityModal } = modalStore;
 
-const onEdit = (habit: Habit) => {
-    onChangeVisibilityModal(true, habit);
+const onCardAction = (habit: Habit, type: HabitModalType) => {
+    onChangeVisibilityModal(true, type, habit);
 }
 </script>
 

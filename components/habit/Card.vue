@@ -38,7 +38,7 @@ interface HabitCardProps {
 }
 
 interface HabitCardEmits {
-    (event: 'edit'): void
+    (event: 'edit' | 'delete'): void;
 }
 
 const statisticStore = useStatisticStore();
@@ -78,7 +78,7 @@ const onChooseAction = (action?: DropdownOption | null) => {
         emit('edit');
     } 
     if(action?.id === 2) {
-        return;
+        emit('delete');
     }
 }
 </script>

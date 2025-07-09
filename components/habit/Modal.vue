@@ -1,5 +1,6 @@
 <template>
     <UiModal
+        v-if="modalType !== HabitModalType.DELETE"
         v-model="isOpenModal"
         :title="modalTitle"
         @update:model-value="onClose"
@@ -37,11 +38,12 @@
 </template>
 
 <script lang="ts" setup>
+import { HabitModalType } from '~/types';
 import { useModal } from './composables/modal';
 
 const modalStore = useModalStore();
 
-const { isOpenModal } = storeToRefs(modalStore);
+const { isOpenModal, modalType } = storeToRefs(modalStore);
 
 const { 
     form, 
@@ -53,8 +55,6 @@ const {
     onClose,
     onSave,
 } = useModal();
-
-watch(() => isOpenModal.value, (val) => console.log('open', val))
 </script>
 
 <style lang="scss" scoped>
