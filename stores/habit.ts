@@ -1,12 +1,14 @@
-import type { Habit, HabitForm } from '~/types';
+import { HabitModalType, type Habit, type HabitForm } from '~/types';
 
 export const useHabitStore = defineStore('habit', () => {
     const habits = ref<Habit[]>([]);
 
-    const isOpenCreateModal = ref(false);
-
-    const onChangeCreateModal = (value: boolean) => {
-        isOpenCreateModal.value = value;
+    const isOpenModal = ref(false);
+    const modalType = ref<HabitModalType>(HabitModalType.CREATE);
+    
+    const onChangeCreateModal = (value: boolean, type?: HabitModalType) => {
+        isOpenModal.value = value;
+        modalType.value = type ?? HabitModalType.CREATE;
     };
 
     const addHabit = (form: HabitForm) => {
@@ -21,10 +23,19 @@ export const useHabitStore = defineStore('habit', () => {
         });
     }
 
+    const deleteHabit = (habitId: number) => {
+        const habitIdx = habits.value.findIndex((hab) => hab.id === habitId);
+        if(habitIdx) {
+            habits.value.splice(habitIdx, 1);
+        }
+    }
+
     return {
         habits,
-        isOpenCreateModal,
+        isOpenModal,
+        modalType,
         onChangeCreateModal,
-        addHabit
+        addHabit,
+        deleteHabit
     };
 });

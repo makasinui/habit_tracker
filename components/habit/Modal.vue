@@ -1,7 +1,7 @@
 <template>
     <UiModal
-        v-model="isOpenCreateModal"
-        title="Create new Habit"
+        v-model="isOpenModal"
+        :title="modalTitle"
         @update:model-value="onClose"
     >
         <div class="modal__habit-content">
@@ -29,7 +29,9 @@
                 :options="typeOptions"
                 :error="vform$.type.$errors"
             />
-            <UiButton @click="onSave"> Create </UiButton>
+            <UiButton @click="onSave"> 
+                {{ buttonText }}
+            </UiButton>
         </div>
     </UiModal>
 </template>
@@ -39,15 +41,23 @@ import { useModal } from './composables/modal';
 
 const habitStore = useHabitStore();
 
-const { form, vform$, periodOptions, typeOptions, clearForm } = useModal();
-
-const { isOpenCreateModal } = storeToRefs(habitStore);
+const { isOpenModal, modalType } = storeToRefs(habitStore);
 const { onChangeCreateModal, addHabit } = habitStore;
+
+const { 
+    form,
+    vform$,
+    periodOptions,
+    typeOptions,
+    modalTitle,
+    buttonText,
+    clearForm,
+} = useModal(modalType.value);
 
 const onClose = () => {
     clearForm();
     onChangeCreateModal(false);
-}
+};
 
 const onSave = async () => {
     const isValid = await vform$.value.$validate();

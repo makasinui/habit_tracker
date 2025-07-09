@@ -1,10 +1,24 @@
 import useVuelidate from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import dayjs from 'dayjs';
-import type { HabitForm } from '~/types';
+import { HabitModalType, type HabitForm } from '~/types';
 
-export const useModal = () => {
+export const useModal = (modalType: HabitModalType) => {
     const { periodOptions, typeOptions } = useOptions();
+
+    const isCreateType = computed(() => modalType === HabitModalType.CREATE);
+
+    const modalTitle = computed(
+        () => isCreateType.value
+        ? 'Create new Habit'
+        : 'Edit Habit'
+    );
+
+    const buttonText = computed(
+        () => isCreateType.value 
+        ? 'Create'
+        : 'Update'
+    )
 
     const form = reactive<HabitForm>({
         goal: '',
@@ -39,5 +53,7 @@ export const useModal = () => {
         clearForm,
         periodOptions,
         typeOptions,
+        modalTitle,
+        buttonText
     };
 };
