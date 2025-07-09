@@ -15,7 +15,7 @@
                     </RouterLink>
                 </li>
                 <li class="footer__menu-list__item">
-                    <RouterLink to="/statistic">
+                    <RouterLink active-class="active" to="/statistic">
                         <Icon
                             name="uil:statistics"
                             class="footer-icon"
