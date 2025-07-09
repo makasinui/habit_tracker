@@ -29,6 +29,7 @@ export interface Habit {
 export interface HabitForm extends Omit<Habit, 'id' | 'period' | 'type'> {
     period: DropdownOption<HabitPeriod>;
     type: DropdownOption<HabitType>;
+    id?: number;
 }
 
 export enum HabitModalType {

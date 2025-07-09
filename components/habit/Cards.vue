@@ -8,6 +8,7 @@
                     :id="habit.id"
                     :key="habit.id"
                     :title="habit.title"
+                    @edit="onEdit(habit)"
                 />
             </template>
             <span v-else>Empty</span>
@@ -16,9 +17,17 @@
 </template>
 
 <script lang="ts" setup>
+import type { Habit } from '~/types';
+
 const habitStore = useHabitStore();
+const modalStore = useModalStore();
 
 const { habits } = storeToRefs(habitStore);
+const { onChangeVisibilityModal } = modalStore;
+
+const onEdit = (habit: Habit) => {
+    onChangeVisibilityModal(true, habit);
+}
 </script>
 
 <style lang="scss">

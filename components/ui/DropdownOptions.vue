@@ -28,7 +28,7 @@ interface DropdownOptionsProps {
 }
 
 interface DropdownOptionsEmits {
-    (event: 'close'): void;
+    (event: 'close', option?: DropdownOption | null): void;
 }
 
 defineProps<DropdownOptionsProps>();
@@ -36,7 +36,7 @@ const emit = defineEmits<DropdownOptionsEmits>();
 const modelValue = defineModel<DropdownOption | null>();
 
 const onClose = () => {
-    emit('close');
+    emit('close', modelValue.value);
 }
 
 const onSelect = (option: DropdownOption) => {

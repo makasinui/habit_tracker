@@ -20,7 +20,7 @@
                 <UiDropdownOptions
                     :is-open="isOpenDetail"
                     :options="actions"
-                    @close="isOpenDetail = false"
+                    @close="onChooseAction"
                 />
             </div>
         </div>
@@ -29,6 +29,7 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs';
+import type { DropdownOption } from '~/types';
 
 interface HabitCardProps {
     id: number;
@@ -36,17 +37,23 @@ interface HabitCardProps {
     description?: string;
 }
 
+interface HabitCardEmits {
+    (event: 'edit'): void
+}
+
 const statisticStore = useStatisticStore();
 
 const { getTodayIsCompleted, addToStatistic, removeFromStatistic } = statisticStore;
 
 const props = defineProps<HabitCardProps>();
+const emit = defineEmits<HabitCardEmits>();
+
 const isCompleted = ref(getTodayIsCompleted(props.id));
 const isOpenDetail = ref(false);
 
 const actions = [
-    { id: '1', label: 'Edit' },
-    { id: '2', label: 'Delete' },
+    { id: 1, label: 'Edit' },
+    { id: 2, label: 'Delete' },
 ];
 
 const openMore = () => {
@@ -63,6 +70,17 @@ const onChangeCompleted = () => {
     }
 
 };
+
+const onChooseAction = (action?: DropdownOption | null) => {
+    isOpenDetail.value = false;
+
+    if(action?.id === 1) {
+        emit('edit');
+    } 
+    if(action?.id === 2) {
+        return;
+    }
+}
 </script>
 
 <style lang="scss">

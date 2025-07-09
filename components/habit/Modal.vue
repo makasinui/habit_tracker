@@ -29,7 +29,7 @@
                 :options="typeOptions"
                 :error="vform$.type.$errors"
             />
-            <UiButton @click="onSave"> 
+            <UiButton @click="onSave">
                 {{ buttonText }}
             </UiButton>
         </div>
@@ -39,36 +39,22 @@
 <script lang="ts" setup>
 import { useModal } from './composables/modal';
 
-const habitStore = useHabitStore();
+const modalStore = useModalStore();
 
-const { isOpenModal, modalType } = storeToRefs(habitStore);
-const { onChangeCreateModal, addHabit } = habitStore;
+const { isOpenModal } = storeToRefs(modalStore);
 
 const { 
-    form,
-    vform$,
-    periodOptions,
-    typeOptions,
-    modalTitle,
-    buttonText,
-    clearForm,
-} = useModal(modalType.value);
+    form, 
+    vform$, 
+    periodOptions, 
+    typeOptions, 
+    modalTitle, 
+    buttonText, 
+    onClose,
+    onSave,
+} = useModal();
 
-const onClose = () => {
-    clearForm();
-    onChangeCreateModal(false);
-};
-
-const onSave = async () => {
-    const isValid = await vform$.value.$validate();
-
-    if (!isValid) {
-        return;
-    }
-
-    addHabit(form);
-    onClose();
-};
+watch(() => isOpenModal.value, (val) => console.log('open', val))
 </script>
 
 <style lang="scss" scoped>

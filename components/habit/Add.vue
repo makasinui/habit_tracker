@@ -1,12 +1,12 @@
 <template>
-    <div class="add-habit pointer" @click="onChangeCreateModal(true)">
+    <div class="add-habit pointer" @click="onChangeVisibilityModal(true)">
         <Icon name="fluent-color:add-circle-24" size="75" />
     </div>
 </template>
 
 <script lang="ts" setup>
-const habitStore = useHabitStore();
-const { onChangeCreateModal } = habitStore;
+const modalStore = useModalStore();
+const { onChangeVisibilityModal } = modalStore;
 </script>
 
 <style lang="scss">
