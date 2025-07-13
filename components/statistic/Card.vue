@@ -1,10 +1,10 @@
 <template>
     <div class="statistic-card">
         <div class="statistic-card__progress">
-            <canvas ref="canvas" />
+            <canvas ref="canvas" width="60" height="60" />
         </div>
         <div class="statistic-card__info">
-            <span>{{ title }}</span>
+            <span class="statistic-info__title">{{ title }}</span>
             <span>{{ daysCompleted }}</span>
         </div>
         <div class="statistic-card__status">
@@ -36,11 +36,11 @@ interface StatisticCardProps {
 const props = defineProps<StatisticCardProps>();
 const { type, period, stats } = props;
 
-const completedDays = computed(() => getCompleted(type, period, stats))
+const { canvas, drawCircleProgress } = useCanvas();
 
-const {
-    getCompleted
-} = useCard();
+const completedDays = computed(() => getCompleted(type, period, stats));
+
+const { getCompleted } = useCard();
 
 const allDays = {
     [HabitPeriod.INFINITE]: '∞',
@@ -53,14 +53,43 @@ const daysCompleted = computed(() => {
 });
 
 const progress = computed(() => {
-    if(allDays !== '∞') {
-        return (completedDays.value / (allDays as number) * 100).toFixed()
+    if (allDays !== '∞') {
+        return ((completedDays.value / (allDays as number)) * 100).toFixed();
     }
 
-    return ''
-})
+    return '100';
+});
 
-const badgeColor = computed(
-    () => progress.value === '100' ? 'green' : 'gray'
-)
+const badgeColor = computed(() => (progress.value === '100' ? 'green' : 'gray'));
+
+onMounted(() => {
+    drawCircleProgress(+progress.value / 100, 20, '#5FE394', '#DBDBDB')
+});
 </script>
+
+<style lang="scss">
+@use '/styles/mixins' as *;
+
+.statistic-card {
+    background: #fbfbfb;
+    border-radius: 10px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: toRem(20);
+    padding: toRem(12);
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+
+        .statistic-info__title {
+            font-weight: 600;
+        }
+    }
+    
+    &__status {
+        margin-left: auto;
+    }
+}
+</style>

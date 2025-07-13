@@ -18,3 +18,11 @@ const statisticHabitsStore = useStatisticHabitsStore();
 
 const { statisticWithHabits } = storeToRefs(statisticHabitsStore);
 </script>
+
+<style lang="scss">
+@use '/styles/mixins' as *;
+
+.statistic-cards {
+    margin-top: toRem(15);
+}
+</style>

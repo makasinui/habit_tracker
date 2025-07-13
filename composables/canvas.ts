@@ -25,7 +25,7 @@ export const useCanvas = () => {
         context.stroke();
     };
 
-    const drawCircleProgress = (progress = 0, fill = '#FFC6A6') => {
+    const drawCircleProgress = (progress = 0, radius = 50, fillCompleted = '#fff', fillUncompleted = '#FFC6A6') => {
         if (!canvas.value) {
             return;
         }
@@ -36,17 +36,14 @@ export const useCanvas = () => {
         const centerX = canvasVal.width / 2;
         const centerY = canvasVal.height / 2;
 
-        const radius = 50;
-
         if (!ctx) {
             return;
         }
 
         ctx.clearRect(0, 0, canvasVal.width, canvasVal.height);
 
-        drawCircle(centerX, centerY, radius, Math.PI, Math.PI * Math.PI, fill);
-        ctx.closePath();
-        drawCircle(centerX, centerY, radius, -0.5 * Math.PI, progress * 2 * Math.PI - 0.5 * Math.PI, '#fff')
+        drawCircle(centerX, centerY, radius, Math.PI, Math.PI * Math.PI, fillUncompleted);
+        drawCircle(centerX, centerY, radius, -0.5 * Math.PI, progress * 2 * Math.PI - 0.5 * Math.PI, fillCompleted)
 
         ctx.font = '21px Nunito';
         ctx.fillStyle = '#fff';
