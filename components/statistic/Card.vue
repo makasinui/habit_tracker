@@ -1,5 +1,5 @@
 <template>
-    <div class="statistic-card">
+    <RouterLink :to="`/statistic/${id}`" class="statistic-card">
         <div class="statistic-card__progress">
             <canvas ref="canvas" width="60" height="60" />
         </div>
@@ -12,7 +12,7 @@
                 {{ progress === '100' ? 'Completed' : 'Uncompleted' }}
             </UiBadge>
         </div>
-    </div>
+    </RouterLink>
 </template>
 
 <script lang="ts" setup>
@@ -78,6 +78,8 @@ onMounted(() => {
     align-items: center;
     gap: toRem(20);
     padding: toRem(12);
+    transition: 0.3s all;
+    cursor: pointer;
 
     &__info {
         display: flex;
@@ -90,6 +92,10 @@ onMounted(() => {
     
     &__status {
         margin-left: auto;
+    }
+
+    &:hover {
+        background: #f6ecec;
     }
 }
 </style>
