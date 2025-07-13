@@ -1,7 +1,31 @@
 export const useCanvas = () => {
     const canvas = ref<HTMLCanvasElement>();
 
-    const drawCircleProgress = (progress = 0) => {
+    const drawCircle = (
+        x: number,
+        y: number,
+        radius: number,
+        startAngle: number,
+        endAngle: number,
+        style: string
+    ) => {
+        if(!canvas.value) {
+            return;
+        }
+        const context = canvas.value.getContext('2d')
+
+        if(!context) {
+            return;
+        }
+
+        context.beginPath();
+        context.arc(x, y, radius, startAngle, endAngle);
+        context.strokeStyle = style;
+        context.lineWidth = 15;
+        context.stroke();
+    };
+
+    const drawCircleProgress = (progress = 0, fill = '#FFC6A6') => {
         if (!canvas.value) {
             return;
         }
@@ -20,18 +44,9 @@ export const useCanvas = () => {
 
         ctx.clearRect(0, 0, canvasVal.width, canvasVal.height);
 
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, Math.PI, Math.PI * Math.PI);
-        ctx.strokeStyle = '#FFC6A6';
-        ctx.lineWidth = 15;
-        ctx.stroke();
+        drawCircle(centerX, centerY, radius, Math.PI, Math.PI * Math.PI, fill);
         ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, -0.5 * Math.PI, progress * 2 * Math.PI - 0.5 * Math.PI);
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 15;
-        ctx.stroke();
+        drawCircle(centerX, centerY, radius, -0.5 * Math.PI, progress * 2 * Math.PI - 0.5 * Math.PI, '#fff')
 
         ctx.font = '21px Nunito';
         ctx.fillStyle = '#fff';
@@ -43,6 +58,7 @@ export const useCanvas = () => {
 
     return {
         canvas,
+        drawCircle,
         drawCircleProgress,
     };
 };
