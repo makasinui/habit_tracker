@@ -41,7 +41,6 @@ const allPeriods: DropdownOption<string>[] = [
 const period = ref<DropdownOption>(allPeriods[0]);
 
 const onChangePeriod = (period: DropdownOption<string>) => {
-    console.log(period);
     if(period?.id) {
         statisticStore.getStatisticByPeriod(period.id);
     }
