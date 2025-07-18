@@ -1,6 +1,7 @@
 <template>
     <main class="container">
         <StatisticCardCalendar :card="currentCard" />
+        <StatisticInfo :card="currentCard" />
     </main>
 </template>
 
