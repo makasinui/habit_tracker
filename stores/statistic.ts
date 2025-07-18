@@ -1,13 +1,27 @@
-import type { Dayjs } from "dayjs";
+import type { Dayjs, OpUnitType } from "dayjs";
 import dayjs from "dayjs";
-import type { Statistic } from "~/types";
+import { HabitType, type Statistic } from "~/types";
 
 export const useStatisticStore = defineStore('statistic', () => {
     const statistics = ref<Statistic[]>([]);
 
-    const getTodayIsCompleted = (habitId: number) => {
+    const getTodayIsCompleted = (habitId: number, habitType: HabitType) => {
         const today = dayjs().startOf('day');
-        return statistics.value.some(stat => stat.habitId === habitId && stat.date.isSame(today, 'day'));
+        
+        const getByMeasure = (measure: OpUnitType) => {
+            return statistics.value.some(stat => stat.habitId === habitId && stat.date.isSame(today, measure))
+        }
+
+        switch(habitType) {
+            case HabitType.DAILY:
+                return getByMeasure('day')
+            case HabitType.WEEKLY:
+                return getByMeasure('week')
+            case HabitType.MONTHLY:
+                return getByMeasure('month')
+            case HabitType.YEARLY:
+                return getByMeasure('year')
+        }
     }
 
     const addToStatistic = (habitId: number, date: Dayjs) => {

@@ -29,11 +29,12 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs';
-import type { DropdownOption } from '~/types';
+import type { DropdownOption, HabitType } from '~/types';
 
 interface HabitCardProps {
     id: number;
     title: string;
+    type: HabitType;
     description?: string;
 }
 
@@ -48,7 +49,7 @@ const { getTodayIsCompleted, addToStatistic, removeFromStatistic } = statisticSt
 const props = defineProps<HabitCardProps>();
 const emit = defineEmits<HabitCardEmits>();
 
-const isCompleted = ref(getTodayIsCompleted(props.id));
+const isCompleted = ref(getTodayIsCompleted(props.id, props.type));
 const isOpenDetail = ref(false);
 
 const actions = [

@@ -8,6 +8,7 @@
                     :id="habit.id"
                     :key="habit.id"
                     :title="habit.title"
+                    :type="habit.type"
                     @edit="onCardAction(habit, HabitModalType.EDIT)"
                     @delete="onCardAction(habit, HabitModalType.DELETE)"
                 />
