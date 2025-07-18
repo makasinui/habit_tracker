@@ -1,5 +1,6 @@
 import type { Dayjs } from "dayjs";
 import type { DropdownOption } from "../global";
+import type { Statistic } from "../statistic";
 
 export enum HabitType {
     DAILY = 'daily',
@@ -36,4 +37,7 @@ export enum HabitModalType {
     CREATE = 'create',
     EDIT = 'edit',
     DELETE = 'delete'
+}
+export interface HabitWithStatistic extends Habit {
+    stats?: Statistic[]
 }
