@@ -6,6 +6,7 @@
 
 <script lang="ts" setup>
 import type { HabitWithStatistic } from '~/types';
+import { useCard } from './composables/card';
 
 interface CardCalendarProps {
     card: HabitWithStatistic;
@@ -13,7 +14,7 @@ interface CardCalendarProps {
 
 const props = defineProps<CardCalendarProps>();
 
-const completedDays = computed(() => {
-    return props.card?.stats?.map(stat => stat.date);
-});
+const { getCompletedCalendarDays } = useCard();
+
+const completedDays = computed(() => getCompletedCalendarDays(props.card));
 </script>

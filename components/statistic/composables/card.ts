@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { HabitPeriod, HabitType, type Statistic } from "~/types";
+import dayjs from 'dayjs';
+import { HabitPeriod, HabitType, type HabitWithStatistic, type Statistic } from '~/types';
 
 export const useCard = () => {
     const getCompleted = (type: HabitType, period: HabitPeriod, stats: Statistic[]) => {
@@ -76,7 +76,58 @@ export const useCard = () => {
         return completedDays;
     };
 
+    const getCompletedCalendarDays = (card: HabitWithStatistic) => {
+        if (!card || !card.stats) return [];
+
+        const habitType = card.type;
+        const rawDates = card.stats.map((stat) => stat.date);
+
+        const result = [];
+
+        for (const dateStr of rawDates) {
+            const date = dayjs(dateStr);
+
+            switch (habitType) {
+                case HabitType.DAILY:
+                    result.push(date);
+                    break;
+
+                case HabitType.WEEKLY: {
+                    const startOfWeek = date.startOf('week');
+                    for (let i = 0; i < 7; i++) {
+                        result.push(startOfWeek.add(i, 'day'));
+                    }
+                    break;
+                }
+
+                case HabitType.MONTHLY: {
+                    const startOfMonth = date.startOf('month');
+                    const daysInMonth = date.daysInMonth();
+                    for (let i = 0; i < daysInMonth; i++) {
+                        result.push(startOfMonth.add(i, 'day'));
+                    }
+                    break;
+                }
+
+                case HabitType.YEARLY: {
+                    const startOfYear = date.startOf('year');
+                    const endOfYear = date.endOf('year');
+                    for (let d = startOfYear; d.isBefore(endOfYear) || d.isSame(endOfYear, 'day'); d = d.add(1, 'day')) {
+                        result.push(d);
+                    }
+                    break;
+                }
+
+                default:
+                    break;
+            }
+        }
+
+        return result;
+    };
+
     return {
-        getCompleted
-    }
+        getCompleted,
+        getCompletedCalendarDays
+    };
 };
