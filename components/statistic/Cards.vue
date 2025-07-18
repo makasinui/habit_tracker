@@ -1,7 +1,7 @@
 <template>
     <div class="statistic-cards">
         <StatisticCard
-            v-for="card in statisticWithHabits"
+            v-for="card in filteredStatistic"
             :id="card.id"
             :key="card.id"
             :title="card.title"
@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 const statisticHabitsStore = useStatisticHabitsStore();
 
-const { statisticWithHabits } = storeToRefs(statisticHabitsStore);
+const { filteredStatistic } = storeToRefs(statisticHabitsStore);
 </script>
 
 <style lang="scss">

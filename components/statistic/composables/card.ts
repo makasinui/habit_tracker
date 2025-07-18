@@ -2,8 +2,11 @@ import dayjs from 'dayjs';
 import { HabitPeriod, HabitType, type HabitWithStatistic, type Statistic } from '~/types';
 
 export const useCard = () => {
-    const getCompleted = (type: HabitType, period: HabitPeriod, stats: Statistic[]) => {
+    const getCompleted = (type: HabitType, period: HabitPeriod, stats?: Statistic[]) => {
         let completedDays = 0;
+        if(!stats) {
+            return 0
+        }
 
         if (type === HabitType.DAILY) {
             completedDays = stats.filter((stat) => {

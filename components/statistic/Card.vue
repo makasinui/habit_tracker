@@ -29,7 +29,7 @@ interface StatisticCardProps {
     startDate: Dayjs;
     type: HabitType;
     period: HabitPeriod;
-    stats: Statistic[];
+    stats: Statistic[] | undefined;
     id: number;
 }
 

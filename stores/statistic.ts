@@ -51,34 +51,7 @@ export const useStatisticStore = defineStore('statistic', () => {
         return statistics.value.filter(stat => stat.date.isSame(dayjs(), 'day'));
     });
     
-    const getStatisticByPeriod = (period: string) => {
-        const currentMonth = dayjs().month();
-        const currentPeriod = {
-            'month': dayjs().endOf('m'),
-            'threeMonths': dayjs().month(currentMonth - 3),
-            'sixMonths': dayjs().month(currentMonth - 6),
-            'year': dayjs().year(),
-            'all': 'all'
-        }[period];
-
-        const filteredStatistic = statistics.value.filter((stat) => {
-            if(period === 'all') {
-                return true;
-            }
-
-            if(period === 'year') {
-                return stat.date.isAfter(currentPeriod, 'y');
-            }
-
-            if(period === 'month') {
-                return stat.date.isSame(currentPeriod, 'M');
-            }
-
-            return stat.date.isAfter(currentPeriod, 'M');
-        });
-
-        return filteredStatistic;
-    }
+   
     
     const saveInStorage = () => {
         localStorage.setItem('statistics', JSON.stringify(statistics.value));
@@ -104,6 +77,5 @@ export const useStatisticStore = defineStore('statistic', () => {
         addToStatistic,
         removeFromStatistic,
         getAllStatisticById,
-        getStatisticByPeriod
     }
 })

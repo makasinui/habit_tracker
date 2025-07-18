@@ -5,7 +5,7 @@
             v-model="period"
             title="Period"
             :options="allPeriods"
-            @update:model-value="onChangePeriod"
+            @update:model-value="onChangePeriod!"
         />
     </div>
 </template>
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import type { DropdownOption } from '~/types';
 
-const statisticStore = useStatisticStore();
+const statisticHabitStore = useStatisticHabitsStore();
 
 const allPeriods: DropdownOption<string>[] = [
     {
@@ -42,9 +42,11 @@ const period = ref<DropdownOption>(allPeriods[0]);
 
 const onChangePeriod = (period: DropdownOption<string>) => {
     if(period?.id) {
-        statisticStore.getStatisticByPeriod(period.id);
+        statisticHabitStore.getStatisticByPeriod(period.id);
     }
 }
+
+onMounted(() => statisticHabitStore.getStatisticByPeriod('month'));
 </script>
 
 <style lang="scss">
