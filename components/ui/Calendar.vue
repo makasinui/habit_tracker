@@ -1,9 +1,19 @@
 <template>
     <div class="calendar">
         <div class="calendar__header">
-            <Icon name="arrow-left" />
-            <span> July </span>
-            <Icon name="arrow-right" />
+            <Icon
+                class="pointer"
+                name="material-symbols:arrow-back-ios"
+                size="15"
+                @click="changeMonth('prev')"
+            />
+            <span class="calendar__header-month"> {{ currentMonth }} </span>
+            <Icon
+                class="pointer"
+                name="material-symbols:arrow-forward-ios"
+                size="15"
+                @click="changeMonth('next')"
+            />
         </div>
         <div class="calendar__wrapper">
             <div class="calendar__weeks">
@@ -22,10 +32,10 @@
                     class="calendar__day"
                     :class="{
                         'calendar__day--today': isToday(day),
-                        'calendar__day--completed': isCompleted(day)
+                        'calendar__day--completed': isCompleted(day),
                     }"
                 >
-                    {{ day }}
+                    {{ day ? day.date() : '' }}
                 </span>
             </div>
         </div>
@@ -38,16 +48,30 @@ import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 
 interface CalendarProps {
-    completedDays?: Dayjs
+    completedDays?: Dayjs[];
 }
 
 dayjs.extend(localeData);
 
+const props = defineProps<CalendarProps>();
+
 const weeks = computed(() => dayjs.weekdaysShort());
 
+const activeDate = ref<Dayjs>(dayjs());
+
+const currentMonth = computed(() => activeDate.value.format('MMMM'));
+
+const changeMonth = (direction: 'next' | 'prev') => {
+    if (direction === 'next') {
+        activeDate.value = activeDate.value.add(1, 'month');
+    } else {
+        activeDate.value = activeDate.value.subtract(1, 'month');
+    }
+};
+
 const calendarDays = computed(() => {
-    const startOfMonth = dayjs().startOf('month');
-    const daysInMonth = dayjs().daysInMonth();
+    const startOfMonth = activeDate.value.startOf('month');
+    const daysInMonth = activeDate.value.daysInMonth();
     const firstDayOfWeek = startOfMonth.day();
 
     const days = [];
@@ -57,29 +81,48 @@ const calendarDays = computed(() => {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-        days.push(i);
+        days.push(startOfMonth.date(i));
     }
 
     return days;
 });
 
-const isToday = (day?: number) => {
-    const today = Number(dayjs().format('D'));
-
-    return today === day;
+const isToday = (day?: Dayjs | null) => {
+    return day ? day.isSame(dayjs(), 'day') : false;
 };
 
-const isCompleted = (day?: number) => {
-
-}
+const isCompleted = (day?: Dayjs | null) => {
+    if(!day || !props.completedDays?.length) return
+    return props.completedDays.some(completedDay => completedDay.isSame(day, 'day'));
+};
 </script>
 
 <style lang="scss">
 @use '/styles/mixins' as *;
 
 .calendar {
+    max-width: toRem(350);
+    margin: 0 auto;
+
+    &__header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: toRem(20);
+
+        &-month {
+            display: inline-block;
+            width: toRem(100);
+            font-size: toRem(18);
+            font-weight: 600;
+            text-align: center;
+            color: #FF3D00;
+        }
+    }
+
     &__wrapper {
         display: flex;
+        margin-top: toRem(15);
         flex-direction: column;
     }
 
@@ -92,7 +135,7 @@ const isCompleted = (day?: number) => {
     &__day {
         text-align: center;
     }
-    
+
     &__days {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -102,15 +145,17 @@ const isCompleted = (day?: number) => {
 
     &__day {
         padding: toRem(10) 0;
-        
+
         &--today {
-            background: #2F2F2F;
+            background: #2f2f2f;
             border-radius: toRem(10);
             color: white;
         }
-        
+
         &--completed {
-            background: #C7FFDE;
+            background: #c7ffde;
+            color: black;
+            border-radius: unset;
         }
     }
 }
